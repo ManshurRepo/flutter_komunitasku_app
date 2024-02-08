@@ -19,38 +19,38 @@ mixin _$MemberEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() getAll,
+    required TResult Function(int filter) getMember,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? getAll,
+    TResult? Function(int filter)? getMember,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? getAll,
+    TResult Function(int filter)? getMember,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_GetAll value) getAll,
+    required TResult Function(_GetMember value) getMember,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_GetAll value)? getAll,
+    TResult? Function(_GetMember value)? getMember,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_GetAll value)? getAll,
+    TResult Function(_GetMember value)? getMember,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,7 +113,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() getAll,
+    required TResult Function(int filter) getMember,
   }) {
     return started();
   }
@@ -122,7 +122,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? getAll,
+    TResult? Function(int filter)? getMember,
   }) {
     return started?.call();
   }
@@ -131,7 +131,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? getAll,
+    TResult Function(int filter)? getMember,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -144,7 +144,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_GetAll value) getAll,
+    required TResult Function(_GetMember value) getMember,
   }) {
     return started(this);
   }
@@ -153,7 +153,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_GetAll value)? getAll,
+    TResult? Function(_GetMember value)? getMember,
   }) {
     return started?.call(this);
   }
@@ -162,7 +162,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_GetAll value)? getAll,
+    TResult Function(_GetMember value)? getMember,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -177,67 +177,93 @@ abstract class _Started implements MemberEvent {
 }
 
 /// @nodoc
-abstract class _$$GetAllImplCopyWith<$Res> {
-  factory _$$GetAllImplCopyWith(
-          _$GetAllImpl value, $Res Function(_$GetAllImpl) then) =
-      __$$GetAllImplCopyWithImpl<$Res>;
+abstract class _$$GetMemberImplCopyWith<$Res> {
+  factory _$$GetMemberImplCopyWith(
+          _$GetMemberImpl value, $Res Function(_$GetMemberImpl) then) =
+      __$$GetMemberImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int filter});
 }
 
 /// @nodoc
-class __$$GetAllImplCopyWithImpl<$Res>
-    extends _$MemberEventCopyWithImpl<$Res, _$GetAllImpl>
-    implements _$$GetAllImplCopyWith<$Res> {
-  __$$GetAllImplCopyWithImpl(
-      _$GetAllImpl _value, $Res Function(_$GetAllImpl) _then)
+class __$$GetMemberImplCopyWithImpl<$Res>
+    extends _$MemberEventCopyWithImpl<$Res, _$GetMemberImpl>
+    implements _$$GetMemberImplCopyWith<$Res> {
+  __$$GetMemberImplCopyWithImpl(
+      _$GetMemberImpl _value, $Res Function(_$GetMemberImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? filter = null,
+  }) {
+    return _then(_$GetMemberImpl(
+      null == filter
+          ? _value.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$GetAllImpl implements _GetAll {
-  const _$GetAllImpl();
+class _$GetMemberImpl implements _GetMember {
+  const _$GetMemberImpl(this.filter);
+
+  @override
+  final int filter;
 
   @override
   String toString() {
-    return 'MemberEvent.getAll()';
+    return 'MemberEvent.getMember(filter: $filter)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetAllImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetMemberImpl &&
+            (identical(other.filter, filter) || other.filter == filter));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, filter);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetMemberImplCopyWith<_$GetMemberImpl> get copyWith =>
+      __$$GetMemberImplCopyWithImpl<_$GetMemberImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() getAll,
+    required TResult Function(int filter) getMember,
   }) {
-    return getAll();
+    return getMember(filter);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? getAll,
+    TResult? Function(int filter)? getMember,
   }) {
-    return getAll?.call();
+    return getMember?.call(filter);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? getAll,
+    TResult Function(int filter)? getMember,
     required TResult orElse(),
   }) {
-    if (getAll != null) {
-      return getAll();
+    if (getMember != null) {
+      return getMember(filter);
     }
     return orElse();
   }
@@ -246,36 +272,41 @@ class _$GetAllImpl implements _GetAll {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_GetAll value) getAll,
+    required TResult Function(_GetMember value) getMember,
   }) {
-    return getAll(this);
+    return getMember(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_GetAll value)? getAll,
+    TResult? Function(_GetMember value)? getMember,
   }) {
-    return getAll?.call(this);
+    return getMember?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_GetAll value)? getAll,
+    TResult Function(_GetMember value)? getMember,
     required TResult orElse(),
   }) {
-    if (getAll != null) {
-      return getAll(this);
+    if (getMember != null) {
+      return getMember(this);
     }
     return orElse();
   }
 }
 
-abstract class _GetAll implements MemberEvent {
-  const factory _GetAll() = _$GetAllImpl;
+abstract class _GetMember implements MemberEvent {
+  const factory _GetMember(final int filter) = _$GetMemberImpl;
+
+  int get filter;
+  @JsonKey(ignore: true)
+  _$$GetMemberImplCopyWith<_$GetMemberImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -598,10 +629,10 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? model = null,
+    Object? model = freezed,
   }) {
     return _then(_$LoadedImpl(
-      null == model
+      freezed == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as MemberResponModel,
@@ -627,11 +658,12 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            (identical(other.model, model) || other.model == model));
+            const DeepCollectionEquality().equals(other.model, model));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, model);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(model));
 
   @JsonKey(ignore: true)
   @override

@@ -4,10 +4,9 @@ import 'package:flutter_komunitas_app/common/constants/colors.dart';
 import 'package:flutter_komunitas_app/presentation/auth/pages/login_page.dart';
 import 'package:flutter_komunitas_app/presentation/home/widgets/member_card.dart';
 
-import 'bloc/member/member_bloc.dart';
+import 'bloc/bloc/member_bloc.dart';
 
 class HomePage extends StatefulWidget {
-
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -87,7 +86,8 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 15),
                   TextButton(
                     onPressed: () {
-                      // Tangani ketika tombol ditekan
+                      final memberId = int.parse(searchController.text);
+                      context.read<MemberBloc>().add(MemberEvent.getMember(memberId));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: ColorName.yellow,
@@ -108,8 +108,36 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-
           const SizedBox(height: 15),
+          // BlocBuilder<MemberBloc, MemberState>(
+          //   builder: (context, state) {
+          //     return state.maybeWhen(
+          //       orElse: () {
+          //         return const Center(
+          //           child: CircularProgressIndicator(),
+          //         );
+          //       },
+          //       loading: () {
+          //         // Tambahkan loading case di sini
+          //         return const Center(
+          //           child: CircularProgressIndicator(),
+          //         );
+          //       },
+          //       loaded: (model) {
+          //         return Expanded(
+          //             child: ListView.builder(
+          //           itemCount: model.data.length,
+          //           itemBuilder: (context, index) => Padding(
+          //             padding: const EdgeInsets.symmetric(vertical: 10.0),
+          //             child: MemberCard(
+          //               data: model.data[index],
+          //             ),
+          //           ),
+          //         ));
+          //       },
+          //     );
+          //   },
+          // ),
           BlocBuilder<MemberBloc, MemberState>(
             builder: (context, state) {
               return state.maybeWhen(
@@ -118,38 +146,42 @@ class _HomePageState extends State<HomePage> {
                     child: CircularProgressIndicator(),
                   );
                 },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
                 loaded: (model) {
+                  if (model.data.isEmpty) {
+                    return const Center(
+                      child: Text('Member Belum Terdaftar!',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black ) ,),
+                    );
+                  }
                   return Expanded(
-                  // return GridView.builder(
-                  //   shrinkWrap: true,
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   gridDelegate:
-                  //       const SliverGridDelegateWithFixedCrossAxisCount(
-                  //     crossAxisCount: 2,
-                  //     crossAxisSpacing: 10.0,
-                  //     mainAxisSpacing: 55.0,
-                  //   ),
-                  //   itemCount: model.data.length,
-                  //   itemBuilder: (context, index) => MemberCard(
-                  //     data: model.data[index],
-                  //   ),
-                  // );
-                  child:  ListView.builder(
-                    // shrinkWrap: true,
-                    // physics: const NeverScrollableScrollPhysics(),
-                    itemCount: model.data.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: MemberCard(
-                        data: model.data[index],
+                    child: ListView.builder(
+                      itemCount: model.data.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: MemberCard(
+                          data: model.data[index],
+                        ),
                       ),
                     ),
-                  )
+                  );
+                },
+                error: (message) {
+                  return Center(
+                    child: Text(message),
                   );
                 },
               );
             },
           ),
+
         ],
       ),
     );

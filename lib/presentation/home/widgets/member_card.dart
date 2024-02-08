@@ -6,7 +6,7 @@ import 'package:flutter_komunitas_app/data/models/responses/members_response_mod
 import '../../../common/constants/variabels.dart';
 
 class MemberCard extends StatelessWidget {
-  final Members data;
+  final Member data;
 
   const MemberCard({Key? key, required this.data}) : super(key: key);
 
@@ -48,19 +48,19 @@ class MemberCard extends StatelessWidget {
                   )
                 ],
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.network(
-                  '${Variables.baseUrl}${data.attributes.foto.data.attributes.url}',
-                  fit: BoxFit.fill,
-                ),
-                // child: Image.asset(
-                //   'assets/images/profil.png',
-                //   width: 170.0,
-                //   height: 112.0,
-                //   fit: BoxFit.cover,
-                // ),
-              ),
+              // child: ClipRRect(
+              //   borderRadius: BorderRadius.circular(50),
+              //   child: Image.asset(
+              //     'assets/images/profil.png',
+              //     fit: BoxFit.fill,
+              //   ),
+              //   // child: Image.asset(
+              //   //   'assets/images/profil.png',
+              //   //   width: 170.0,
+              //   //   height: 112.0,
+              //   //   fit: BoxFit.cover,
+              //   // ),
+              // ),
             ),
           ),
           const SizedBox(height: 10),

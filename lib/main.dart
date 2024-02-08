@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_komunitas_app/presentation/auth/bloc/login/login_bloc.dart';
+import 'package:flutter_komunitas_app/presentation/home/bloc/bloc/member_bloc.dart';
 
-import 'package:flutter_komunitas_app/presentation/home/bloc/member/member_bloc.dart';
 import 'package:flutter_komunitas_app/presentation/splash_screen_page.dart';
 
 void main() {
@@ -19,9 +19,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => LoginBloc(),
         ),
-        BlocProvider(
-          create: (context) =>
-          MemberBloc()..add(const MemberEvent.getAll()),
+         BlocProvider(
+          create: (context) => MemberBloc(),
         ),
       ],
       child: MaterialApp(
